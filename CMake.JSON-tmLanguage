@@ -1,0 +1,141 @@
+{ "name": "CMake",
+  "scopeName": "source.cmake",
+  "fileTypes": ["cmake", "CMakeLists.txt"],
+  "repository": {
+    "variable-markup": {
+          "begin": "(\\$)(\\{)",
+          "beginCaptures": {
+              "1": { "name": "punctuation.definition.variable.cmake" },
+              "2": { "name": "punctuation.definition.variable.cmake" }
+           },
+           "patterns": [
+              { "include": "#variable-markup" },
+              { "name": "variable.other.cmake",
+                "match": "."
+              }
+           ],
+           "end": "\\}",
+           "endCaptures": {
+              "0": { "name": "punctuation.definition.variable.cmake" }
+           }
+    },
+
+    "argument": {
+      "patterns": [
+        { "include": "#variable-markup" },
+        { "include": "#number-literal" },
+        { "include": "#string-literal" }
+      ]
+    },
+
+    "number-literal": {
+      "name": "constant.numeric.float.cmake",
+      "match": "(\\d*.)\\d+"
+    },
+
+    "string-literal": {
+      "name": "string.quoted.double.cmake",
+      "begin": "\"",
+      "end": "\""
+    },
+
+    "comment": {
+      "name": "comment.line.number-sign.cmake",
+      "match": "#.*$",
+      "comment": "Comments (extending until the end of the line)."
+    }
+
+  },
+
+  "patterns": [
+      { "include": "#comment" },
+
+      { "name": "variable.cmake",
+          "begin": "(\\$)(\\{)",
+          "beginCaptures": {
+              "1": { "name": "punctuation.definition.variable.cmake" },
+              "2": { "name": "punctuation.definition.variable.cmake" }
+           },
+           "patterns": [
+              { "include": "#variable-markup" },
+              { "name": "variable.other.cmake",
+                "match": "."
+              }
+           ],
+           "end": "\\}",
+           "endCaptures": {
+              "0": { "name": "punctuation.definition.variable.cmake" }
+           }
+      },
+
+      {
+        "name": "meta.module.cmake",
+        "begin": "(include|project)\\s*(\\()",
+        "beginCaptures": {
+          "1": { "name": "keyword.other.special-method.cmake" },
+          "2": { "name": "punctuation.definition.variable.cmake" }
+        },
+        "end": "(\\))",
+        "endCaptures": {
+          "1": { "name": "punctuation.definition.variable.cmake" }
+        },
+        "patterns": [
+          { "include": "#argument" }
+        ]
+        },
+
+      {
+        "name": "meta.function.cmake",
+        "begin": "(function|macro)\\s*(\\()(.*)(\\))",
+        "beginCaptures": {
+          "1": { "name": "keyword.other.special-method.cmake" },
+          "2": { "name": "punctuation.definition.variable.cmake" },
+          "4": { "name": "punctuation.definition.variable.cmake" }
+        },
+        "end": "(endfunction|endmacro)\\s*(\\()(.*)(\\))",
+        "endCaptures": {
+          "1": { "name": "keyword.other.special-method.cmake" },
+          "2": { "name": "punctuation.definition.variable.cmake" },
+          "4": { "name": "punctuation.definition.variable.cmake" }
+        },
+        "patterns": [
+          { "include": "$self" }
+        ]
+      },
+
+      {
+        "name": "meta.function.cmake",
+        "begin": "(if|endif|else|elseif|foreach|endforeach)\\s*(\\()",
+        "beginCaptures": {
+          "1": { "name": "keyword.control.directive.cmake" },
+          "2": { "name": "punctuation.definition.variable.cmake" }
+        },
+        "end": "(\\))",
+        "endCaptures": {
+          "1": { "name": "punctuation.definition.variable.cmake" }
+        },
+        "patterns": [
+          { "include": "#argument" }
+        ]
+      },
+
+      {
+        "name": "meta.block.cmake",
+        "begin": "(\\w+)\\s*(\\()",
+        "beginCaptures": {
+          "1": { "name": "entity.name.function.cmake" },
+          "2": { "name": "punctuation.definition.variable.cmake" }
+        },
+        "end": "(\\))",
+        "endCaptures": {
+          "1": { "name": "punctuation.definition.variable.cmake" }
+        },
+        "patterns": [
+          { "include": "#argument" }
+        ]
+      }
+
+  ],
+
+  "uuid": "1091985b-ddaa-409b-be15-5d8e6e685849"
+}
