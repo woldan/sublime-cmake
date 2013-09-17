@@ -36,7 +36,10 @@
     "string-literal": {
       "name": "string.quoted.double.cmake",
       "begin": "\"",
-      "end": "\""
+      "end": "\"",
+      "patterns": [
+        { "include": "#variable-markup" }
+      ]
     },
 
     "comment": {
